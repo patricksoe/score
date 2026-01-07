@@ -12,6 +12,10 @@ const Create = () => {
   const [players, setPlayers] = useState(['', '']);
   const [scoringOption, setScoringOption] = useState('points');
   const [targetValue, setTargetValue] = useState(21);
+  const [errors, setErrors] = useState({
+    tournamentName: '',
+    players: ''
+  });
 
   const handleAddPlayer = () => {
     setPlayers([...players, '']);
@@ -35,19 +39,48 @@ const Create = () => {
     setTargetValue(value === 'points' ? 21 : 3);
   };
 
+  const handleTournamentNameChange = (value) => {
+    setTournamentName(value);
+    // Clear error when user starts typing
+    if (errors.tournamentName && value.trim()) {
+      setErrors({ ...errors, tournamentName: '' });
+    }
+  };
+
+  const handlePlayerChangeWithValidation = (index, value) => {
+    handlePlayerChange(index, value);
+    // Clear players error when valid players count is reached
+    const validPlayers = players.filter(p => p.trim() !== '');
+    if (errors.players && validPlayers.length >= 2) {
+      setErrors({ ...errors, players: '' });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Clear previous errors
+    const newErrors = {
+      tournamentName: '',
+      players: ''
+    };
     
     // Filter out empty player names
     const validPlayers = players.filter(player => player.trim() !== '');
     
+    // Validate tournament name
     if (!tournamentName.trim()) {
-      alert('Please enter a tournament name');
-      return;
+      newErrors.tournamentName = 'Please enter a tournament name';
     }
     
+    // Validate players
     if (validPlayers.length < 2) {
-      alert('Please add at least 2 players');
+      newErrors.players = 'Please add at least 2 players';
+    }
+    
+    // If there are errors, set them and return
+    if (newErrors.tournamentName || newErrors.players) {
+      setErrors(newErrors);
       return;
     }
 
@@ -84,10 +117,13 @@ const Create = () => {
               type="text"
               id="tournamentName"
               value={tournamentName}
-              onChange={(e) => setTournamentName(e.target.value)}
+              onChange={(e) => handleTournamentNameChange(e.target.value)}
               placeholder="Enter tournament name"
-              className={styles.input}
+              className={`${styles.input} ${errors.tournamentName ? styles.inputError : ''}`}
             />
+            {errors.tournamentName && (
+              <span className={styles.errorMessage}>{errors.tournamentName}</span>
+            )}
           </div>
 
           <div className={styles.formGroup}>
@@ -98,9 +134,9 @@ const Create = () => {
                   <input
                     type="text"
                     value={player}
-                    onChange={(e) => handlePlayerChange(index, e.target.value)}
+                    onChange={(e) => handlePlayerChangeWithValidation(index, e.target.value)}
                     placeholder={`Player ${index + 1}`}
-                    className={styles.input}
+                    className={`${styles.input} ${errors.players ? styles.inputError : ''}`}
                   />
                   {players.length > 2 && (
                     <button
@@ -114,6 +150,9 @@ const Create = () => {
                 </div>
               ))}
             </div>
+            {errors.players && (
+              <span className={styles.errorMessage}>{errors.players}</span>
+            )}
             
             <button
               type="button"

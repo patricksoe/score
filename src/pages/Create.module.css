@@ -43,6 +43,21 @@
   border-color: #4a90e2;
 }
 
+.inputError {
+  border-color: #ff4444 !important;
+}
+
+.inputError:focus {
+  border-color: #ff4444 !important;
+}
+
+.errorMessage {
+  color: #ff4444;
+  font-size: 0.9rem;
+  margin-top: -0.25rem;
+  display: block;
+}
+
 .select {
   padding: 0.75rem 1rem;
   font-size: 1rem;
