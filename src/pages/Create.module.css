@@ -146,6 +146,7 @@
 
 .scoringOptions {
   display: flex;
+  flex-direction: row;
   gap: 0.75rem;
   margin-top: 0.25rem;
 }
@@ -156,12 +157,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0.875rem 1rem;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   background-color: white;
 }
 
@@ -185,7 +186,7 @@
 }
 
 .radioOption span {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #666;
   transition: all 0.2s ease;
 }
@@ -222,9 +223,5 @@
 
   .formWrapper h2 {
     font-size: 1.25rem;
-  }
-  
-  .scoringOptions {
-    flex-direction: column;
   }
 }
