@@ -1,19 +1,26 @@
 .nav {
   position: relative;
   text-align: center;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem 1rem 0.75rem;
+  background-color: #f8f9fa;
+}
+
+.nav h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
 }
 
 .backButton {
   position: absolute;
-  left: 1rem;
+  left: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
   padding: 0.6rem;
   border: none;
   background-color: transparent;
-  color: #4a90e2;
+  color: #0066cc;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -21,6 +28,8 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .backButton svg {
@@ -28,12 +37,12 @@
 }
 
 .backButton:hover {
-  background-color: rgba(74, 144, 226, 0.1);
+  background-color: rgba(0, 102, 204, 0.1);
 }
 
 .backButton:active {
   transform: translateY(-50%) scale(0.92);
-  background-color: rgba(74, 144, 226, 0.2);
+  background-color: rgba(0, 102, 204, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -47,6 +56,6 @@
   }
   
   .nav h1 {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 }
