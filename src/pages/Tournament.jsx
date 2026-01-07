@@ -653,6 +653,16 @@ const Tournament = () => {
             </button>
           )}
         </div>
+
+        {/* End Tournament Button */}
+        {hasPlayedMatches && (
+          <button 
+            className={styles.endTournamentButton}
+            onClick={() => navigate(`/tournament/${tournament.id}/summary`)}
+          >
+            End Tournament
+          </button>
+        )}
       </div>
 
       {showPlayerEditor && (

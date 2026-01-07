@@ -1,0 +1,307 @@
+.wrapper {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.completedBadge {
+  display: inline-block;
+  background-color: #52c41a;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  margin: 0 0 0.75rem 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.meta {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Podium */
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 2.5rem 0;
+  padding: 0 1rem;
+}
+
+.podiumPlace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 120px;
+}
+
+.podiumName {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.podiumPoints {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.podiumBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 0 0;
+  padding: 1rem 0.5rem;
+}
+
+.podiumBlock.first {
+  background: linear-gradient(135deg, #ffd700 0%, #ffec8b 50%, #ffd700 100%);
+  height: 120px;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.podiumBlock.second {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 50%, #c0c0c0 100%);
+  height: 90px;
+  box-shadow: 0 4px 12px rgba(192, 192, 192, 0.4);
+}
+
+.podiumBlock.third {
+  background: linear-gradient(135deg, #cd7f32 0%, #daa06d 50%, #cd7f32 100%);
+  height: 70px;
+  box-shadow: 0 4px 12px rgba(205, 127, 50, 0.4);
+}
+
+.podiumMedal {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.podiumPosition {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Standings */
+.standingsSection {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.standingsSection h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+}
+
+.standingsTable {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #eee;
+}
+
+.standingsHeader {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.standingsRow {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.standingsRow:last-child {
+  border-bottom: none;
+}
+
+.standingsTop3 {
+  background-color: #fffbe6;
+}
+
+.standingsRank {
+  width: 35px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.standingsName {
+  flex: 1;
+  font-weight: 600;
+  color: #333;
+}
+
+.standingsStat {
+  width: 35px;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.standingsPoints {
+  width: 45px;
+  text-align: center;
+  font-weight: 700;
+  color: #4a90e2;
+  font-size: 1rem;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.primaryButton {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.primaryButton:hover {
+  background-color: #357abd;
+}
+
+.secondaryButton {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #ddd;
+  background-color: white;
+  color: #666;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.secondaryButton:hover {
+  border-color: #4a90e2;
+  color: #4a90e2;
+}
+
+/* Not Found */
+.notFound {
+  text-align: center;
+  padding: 3rem;
+}
+
+.notFound h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.notFound p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.backButton:hover {
+  background-color: #357abd;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .podium {
+    gap: 0.25rem;
+  }
+  
+  .podiumName {
+    font-size: 0.85rem;
+  }
+  
+  .podiumBlock.first {
+    height: 100px;
+  }
+  
+  .podiumBlock.second {
+    height: 75px;
+  }
+  
+  .podiumBlock.third {
+    height: 55px;
+  }
+  
+  .podiumMedal {
+    font-size: 1.5rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+}
+

@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Create from './pages/Create';
 import Tournament from './pages/Tournament';
+import TournamentSummary from './pages/TournamentSummary';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
           <Route path="/tournament/:id" element={<Tournament />} />
+          <Route path="/tournament/:id/summary" element={<TournamentSummary />} />
         </Routes>
       </main>
     </>
