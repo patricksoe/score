@@ -8,6 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
   max-width: 600px;
   background-color: #fff;
+  -webkit-text-size-adjust: 100%;
 }
 
 img {
@@ -16,6 +17,34 @@ img {
 
 a {
   text-decoration: none;
+}
+
+/* Fix iOS button styling */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* Fix iOS input styling */
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* Prevent iOS zoom on input focus */
+input,
+select,
+textarea {
+  font-size: 16px;
 }
 
 main {

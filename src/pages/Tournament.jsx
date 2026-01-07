@@ -305,12 +305,17 @@ const ScoreSelector = ({ match, scoringOption, targetValue, onSave, onCancel }) 
 };
 
 // Standings/Leaderboard Component
-const Standings = ({ standings, scoringOption }) => {
+const Standings = ({ standings, scoringOption, onEditPlayers }) => {
   return (
     <div className={styles.standingsSection}>
-      <h3>Standings</h3>
+      <div className={styles.standingsHeader}>
+        <h3>Standings</h3>
+        <button onClick={onEditPlayers} className={styles.editPlayersButton}>
+          Edit Players
+        </button>
+      </div>
       <div className={styles.standingsTable}>
-        <div className={styles.standingsHeader}>
+        <div className={styles.standingsTableHeader}>
           <span className={styles.standingsRank}>#</span>
           <span className={styles.standingsName}>Player</span>
           <span className={styles.standingsStat}>W</span>
@@ -339,11 +344,102 @@ const Standings = ({ standings, scoringOption }) => {
   );
 };
 
+// Player Editor Modal Component
+const PlayerEditor = ({ players, onSave, onClose }) => {
+  const [editedPlayers, setEditedPlayers] = useState([...players]);
+  const [newPlayerName, setNewPlayerName] = useState('');
+
+  const handleAddPlayer = () => {
+    const trimmedName = newPlayerName.trim();
+    if (trimmedName && !editedPlayers.includes(trimmedName)) {
+      setEditedPlayers([...editedPlayers, trimmedName]);
+      setNewPlayerName('');
+    }
+  };
+
+  const handleRemovePlayer = (playerToRemove) => {
+    setEditedPlayers(editedPlayers.filter(p => p !== playerToRemove));
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddPlayer();
+    }
+  };
+
+  const handleSave = () => {
+    if (editedPlayers.length >= 2) {
+      onSave(editedPlayers);
+    }
+  };
+
+  return (
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalHeader}>
+          <h3>Edit Players</h3>
+          <button onClick={onClose} className={styles.closeButton}>✕</button>
+        </div>
+
+        <div className={styles.modalContent}>
+          <div className={styles.addPlayerSection}>
+            <input
+              type="text"
+              value={newPlayerName}
+              onChange={(e) => setNewPlayerName(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Enter player name"
+              className={styles.addPlayerInput}
+            />
+            <button 
+              onClick={handleAddPlayer}
+              className={styles.addPlayerButton}
+              disabled={!newPlayerName.trim()}
+            >
+              Add
+            </button>
+          </div>
+
+          <div className={styles.playerEditorList}>
+            {editedPlayers.map((player, index) => (
+              <div key={index} className={styles.playerEditorItem}>
+                <span className={styles.playerEditorName}>{player}</span>
+                <button 
+                  onClick={() => handleRemovePlayer(player)}
+                  className={styles.removePlayerButton}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {editedPlayers.length < 2 && (
+            <p className={styles.playerWarning}>Need at least 2 players</p>
+          )}
+        </div>
+
+        <div className={styles.modalActions}>
+          <button onClick={onClose} className={styles.cancelButton}>Cancel</button>
+          <button 
+            onClick={handleSave} 
+            className={styles.saveButton}
+            disabled={editedPlayers.length < 2}
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Tournament = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getTournament, updateTournament } = useTournament();
   const [expandedMatchId, setExpandedMatchId] = useState(null);
+  const [showPlayerEditor, setShowPlayerEditor] = useState(false);
   
   const tournament = getTournament(Number(id));
   
@@ -418,6 +514,15 @@ const Tournament = () => {
   const hasPlayedMatches = matches.some(round => 
     !round.placeholder && round.matches.some(m => m.status === 'completed')
   );
+
+  const handleEditPlayers = () => {
+    setShowPlayerEditor(true);
+  };
+
+  const handleSavePlayers = (newPlayers) => {
+    updateTournament(tournament.id, { players: newPlayers });
+    setShowPlayerEditor(false);
+  };
   
   return (
     <Container>
@@ -438,13 +543,22 @@ const Tournament = () => {
         
         {/* Show standings if any matches have been played */}
         {hasPlayedMatches && (
-          <Standings standings={standings} scoringOption={tournament.scoringOption} />
+          <Standings 
+            standings={standings} 
+            scoringOption={tournament.scoringOption}
+            onEditPlayers={handleEditPlayers}
+          />
         )}
         
         {/* Show players list only if no matches played yet */}
         {!hasPlayedMatches && (
           <div className={styles.playersSection}>
-            <h3>Players</h3>
+            <div className={styles.playersSectionHeader}>
+              <h3>Players</h3>
+              <button onClick={handleEditPlayers} className={styles.editPlayersButton}>
+                Edit
+              </button>
+            </div>
             <div className={styles.playersList}>
               {tournament.players.map((player, index) => (
                 <div key={index} className={styles.playerChip}>
@@ -540,6 +654,14 @@ const Tournament = () => {
           )}
         </div>
       </div>
+
+      {showPlayerEditor && (
+        <PlayerEditor
+          players={tournament.players}
+          onSave={handleSavePlayers}
+          onClose={() => setShowPlayerEditor(false)}
+        />
+      )}
     </Container>
   );
 };

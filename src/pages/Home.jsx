@@ -25,22 +25,22 @@ const SwipeableCard = ({ children, onDelete }) => {
     currentX.current = e.touches[0].clientX;
     const diff = currentX.current - startX.current;
     
-    // Only allow swiping right (positive diff) or closing (if revealed)
+    // Swipe left to reveal (negative diff), swipe right to close
     if (isRevealed) {
-      // If revealed, allow swiping left to close
-      const newOffset = Math.max(0, Math.min(DELETE_WIDTH, DELETE_WIDTH + diff));
+      // If revealed, allow swiping right to close
+      const newOffset = Math.min(0, Math.max(-DELETE_WIDTH, -DELETE_WIDTH + diff));
       setOffset(newOffset);
     } else {
-      // If not revealed, only allow swiping right
-      const newOffset = Math.max(0, Math.min(DELETE_WIDTH, diff));
+      // If not revealed, only allow swiping left (negative)
+      const newOffset = Math.min(0, Math.max(-DELETE_WIDTH, diff));
       setOffset(newOffset);
     }
   };
 
   const handleTouchEnd = () => {
-    if (offset > SWIPE_THRESHOLD / 2) {
+    if (offset < -SWIPE_THRESHOLD / 2) {
       // Reveal delete button
-      setOffset(DELETE_WIDTH);
+      setOffset(-DELETE_WIDTH);
       setIsRevealed(true);
     } else {
       // Hide delete button
