@@ -9,6 +9,8 @@ const Create = () => {
   const { addTournament } = useTournament();
   
   const [tournamentName, setTournamentName] = useState('');
+  const [tournamentType, setTournamentType] = useState('americano');
+  const [numberOfCourts, setNumberOfCourts] = useState(1);
   const [players, setPlayers] = useState(['', '']);
   const [scoringOption, setScoringOption] = useState('points');
   const [targetValue, setTargetValue] = useState(21);
@@ -86,7 +88,9 @@ const Create = () => {
 
     // Create tournament object
     const tournamentData = { 
-      name: tournamentName, 
+      name: tournamentName,
+      tournamentType,
+      numberOfCourts,
       players: validPlayers, 
       scoringOption,
       targetValue,
@@ -101,8 +105,8 @@ const Create = () => {
     
     console.log('Tournament created:', savedTournament);
     
-    // Navigate back to home page
-    navigate('/');
+    // Navigate to tournament detail page
+    navigate(`/tournament/${savedTournament.id}`);
   };
 
   return (
@@ -124,6 +128,48 @@ const Create = () => {
             {errors.tournamentName && (
               <span className={styles.errorMessage}>{errors.tournamentName}</span>
             )}
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>Tournament Type</label>
+            <div className={styles.scoringOptions}>
+              <label className={styles.radioOption}>
+                <input
+                  type="radio"
+                  name="tournamentType"
+                  value="americano"
+                  checked={tournamentType === 'americano'}
+                  onChange={(e) => setTournamentType(e.target.value)}
+                />
+                <span>Americano</span>
+              </label>
+              <label className={styles.radioOption}>
+                <input
+                  type="radio"
+                  name="tournamentType"
+                  value="mexicano"
+                  checked={tournamentType === 'mexicano'}
+                  onChange={(e) => setTournamentType(e.target.value)}
+                />
+                <span>Mexicano</span>
+              </label>
+            </div>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="numberOfCourts">Number of Courts</label>
+            <select
+              id="numberOfCourts"
+              value={numberOfCourts}
+              onChange={(e) => setNumberOfCourts(Number(e.target.value))}
+              className={styles.select}
+            >
+              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
+                <option key={num} value={num}>
+                  {num} {num === 1 ? 'Court' : 'Courts'}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className={styles.formGroup}>
