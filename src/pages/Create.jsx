@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTournament } from '../context/TournamentContext';
 import Container from '../components/Container';
 import styles from './Create.module.css';
 
 const Create = () => {
+  const navigate = useNavigate();
+  const { addTournament } = useTournament();
+  
   const [tournamentName, setTournamentName] = useState('');
   const [players, setPlayers] = useState(['', '']);
   const [scoringOption, setScoringOption] = useState('points');
@@ -46,13 +51,25 @@ const Create = () => {
       return;
     }
 
-    // TODO: Handle tournament creation
-    console.log('Tournament:', { 
+    // Create tournament object
+    const tournamentData = { 
       name: tournamentName, 
       players: validPlayers, 
       scoringOption,
-      targetValue 
-    });
+      targetValue,
+      scores: validPlayers.reduce((acc, player) => {
+        acc[player] = 0;
+        return acc;
+      }, {}),
+    };
+
+    // Save tournament to global state
+    const savedTournament = addTournament(tournamentData);
+    
+    console.log('Tournament created:', savedTournament);
+    
+    // Navigate back to home page
+    navigate('/');
   };
 
   return (
